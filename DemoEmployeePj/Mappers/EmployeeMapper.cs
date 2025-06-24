@@ -4,9 +4,9 @@ using DemoEmployeePj.Models;
 
 namespace DemoEmployeePj.Mappers
 {
-    public static class EmployeeMapper
+    public class EmployeeMapper: IEmployeeMapper
     {
-        public static Employee EmployeeCreateDtoToEmployee(EmployeeCreateDto employeeCreateDto)
+        public Employee EmployeeCreateDtoToEmployee(EmployeeCreateDto employeeCreateDto)
         {
             Employee employee = new Employee();
             employee.Id = Guid.NewGuid();
@@ -15,7 +15,7 @@ namespace DemoEmployeePj.Mappers
             return employee;
         }
 
-        public static EmployeeGetDto EmployeeToEmployeeGetDto(Employee employee)
+        public EmployeeGetDto EmployeeToEmployeeGetDto(Employee employee)
         {
             EmployeeGetDto employeeGetDto = new EmployeeGetDto();
             employeeGetDto.Name = employee.Name;
@@ -23,7 +23,7 @@ namespace DemoEmployeePj.Mappers
             return employeeGetDto;
         }
 
-        public static List<EmployeeGetDto> EmployeeListToEmployeeGetDtoList(List<Employee> employeeList)
+        public List<EmployeeGetDto> EmployeeListToEmployeeGetDtoList(List<Employee> employeeList)
         {
             List<EmployeeGetDto> employeeGetDtoList = new List<EmployeeGetDto>();
 

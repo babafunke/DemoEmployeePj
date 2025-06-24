@@ -10,6 +10,12 @@ namespace DemoEmployeePj.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
+        private readonly IEmployeeMapper _employeeMapper; 
+        public EmployeeController(IEmployeeMapper employeeMapper)
+        {
+            _employeeMapper = employeeMapper;
+        }
+
         [HttpGet]
         public IActionResult GetEmployees()
         {
@@ -17,7 +23,7 @@ namespace DemoEmployeePj.Controllers
 
             List<EmployeeGetDto> employeesGetDto = new List<EmployeeGetDto>();
 
-            employeesGetDto = EmployeeMapper.EmployeeListToEmployeeGetDtoList(employees);
+            employeesGetDto = _employeeMapper.EmployeeListToEmployeeGetDtoList(employees);
 
             return Ok(employeesGetDto);
         }
@@ -25,7 +31,7 @@ namespace DemoEmployeePj.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] EmployeeCreateDto employeeCreateDto)
         {
-            EmployeeMapper.EmployeeCreateDtoToEmployee(employeeCreateDto);
+            _employeeMapper.EmployeeCreateDtoToEmployee(employeeCreateDto);
 
             return Created();
         }

@@ -1,4 +1,6 @@
 
+using DemoEmployeePj.Mappers;
+
 namespace DemoEmployeePj
 {
     public class Program
@@ -13,6 +15,7 @@ namespace DemoEmployeePj
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IEmployeeMapper, EmployeeMapper>();
 
             var app = builder.Build();
 
