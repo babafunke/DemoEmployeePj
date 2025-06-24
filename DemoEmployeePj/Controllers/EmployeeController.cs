@@ -1,6 +1,4 @@
 ﻿using DemoEmployeePj.Data;
-using DemoEmployeePj.Dtos;
-using DemoEmployeePj.Mappers;
 using DemoEmployeePj.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,18 +13,12 @@ namespace DemoEmployeePj.Controllers
         {
             List<Employee> employees = EmployeeData.Employees; //Gets the employeed from the storage as the main model
 
-            List<EmployeeGetDto> employeesGetDto = new List<EmployeeGetDto>();
-
-            employeesGetDto = EmployeeMapper.EmployeeListToEmployeeGetDtoList(employees);
-
-            return Ok(employeesGetDto);
+            return Ok(employees);
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee([FromBody] EmployeeCreateDto employeeCreateDto)
+        public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            EmployeeMapper.EmployeeCreateDtoToEmployee(employeeCreateDto);
-
             return Created();
         }
     }
