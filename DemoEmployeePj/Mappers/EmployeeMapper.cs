@@ -11,7 +11,7 @@ namespace DemoEmployeePj.Mappers
             Employee employee = new Employee();
             employee.Id = Guid.NewGuid();
             employee.Name = employeeCreateDto.Name;
-            EmployeeData.Employees.Add(employee);
+            //EmployeeData.Employees.Add(employee);
             return employee;
         }
 

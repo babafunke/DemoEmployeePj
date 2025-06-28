@@ -1,7 +1,5 @@
-﻿using DemoEmployeePj.Data;
-using DemoEmployeePj.Dtos;
-using DemoEmployeePj.Mappers;
-using DemoEmployeePj.Models;
+﻿using DemoEmployeePj.Dtos;
+using DemoEmployeePj.Managers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoEmployeePj.Controllers
@@ -10,30 +8,27 @@ namespace DemoEmployeePj.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployeeMapper _employeeMapper; 
-        public EmployeeController(IEmployeeMapper employeeMapper)
+        private readonly IEmployeeManager _employeeManager;
+
+        public EmployeeController(IEmployeeManager employeeManager)
         {
-            _employeeMapper = employeeMapper;
+            _employeeManager = employeeManager;
         }
 
         [HttpGet]
-        public IActionResult GetEmployees()
+        public async Task<IActionResult> GetEmployees()
         {
-            List<Employee> employees = EmployeeData.Employees; //Gets the employeed from the storage as the main model
+            List<EmployeeGetDto> employees = await _employeeManager.GetEmployeesAsync();
 
-            List<EmployeeGetDto> employeesGetDto = new List<EmployeeGetDto>();
-
-            employeesGetDto = _employeeMapper.EmployeeListToEmployeeGetDtoList(employees);
-
-            return Ok(employeesGetDto);
+            return Ok(employees);
         }
 
         [HttpPost]
-        public IActionResult CreateEmployee([FromBody] EmployeeCreateDto employeeCreateDto)
+        public async Task<IActionResult> CreateEmployee([FromBody] EmployeeCreateDto employeeCreateDto)
         {
-            _employeeMapper.EmployeeCreateDtoToEmployee(employeeCreateDto);
+            string result = await _employeeManager.CreateEmployee(employeeCreateDto);
 
-            return Created();
+            return Ok(result);
         }
     }
 }

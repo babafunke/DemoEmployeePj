@@ -1,5 +1,9 @@
 
+using DemoEmployeePj.Data;
+using DemoEmployeePj.Managers;
 using DemoEmployeePj.Mappers;
+using DemoEmployeePj.Repo;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoEmployeePj
 {
@@ -15,7 +19,10 @@ namespace DemoEmployeePj
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<ApplicationDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DemoEmployeeDbConnection")));
             builder.Services.AddScoped<IEmployeeMapper, EmployeeMapper>();
+            builder.Services.AddScoped<IRepoService, SqlServerRepoService>();
+            builder.Services.AddScoped<IEmployeeManager, EmployeeManager>();
 
             var app = builder.Build();
 
