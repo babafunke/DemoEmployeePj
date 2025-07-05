@@ -1,0 +1,23 @@
+﻿@model List<EmployeeGetDto>
+
+<table>
+    <thead class="table">
+        <tr>
+            <th>Name</th>
+            <th>Created Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EmployeeGetDto employee in Model)
+        {
+            <tr>
+                <td>@employee.Name</td>
+                <td>@employee.CreatedDate</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Create">Create Employee</a>
+</p>
